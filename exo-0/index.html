@@ -11,55 +11,62 @@
 
         /* Section 1 */   
 
-        var name = "Joe";
-        var city = 'London';
-        var age = 32;
-        var isRed = true;
-        var isOld = age > 80;
+        var name = "Joe";         //Atribut un nom de personne a une variable
+        var city = 'London';      //Atribut un nom de ville a une variable
+        var age = 32;             //Atribut un age d'une personne a une variable
+        var isRed = true;         //Atribut ttribut une valeur true par défault a la question est-il rouge?
+        var isOld = age > 80;     //Atribut une valeur par défaut a la question est-il vieux ? si age > 80 la valeur par défaut = vrai
 
-        var previousJobs = ['lawyer', 'developper', 'Professionnal climber'];
+        var previousJobs = ['lawyer', 'developper', 'Professionnal climber'];   //Attribut plusieurs nom de travail dans un tableau
 
-        function info(height, weight) {
-            if (height > 180) {
+        function info(height, weight) {          //Fonction qui envoir différent message dans la console celon la résultat de la taille ou de la Poid envoyé en paramètre
+            if (height > 180) {                                  //Si Taille supérieur à 100 alors écrit dans la console "Vous êtes Grand"
                 console.log('Vous êtes grand');
             }
-            if (weight < 0) {
+            if (weight < 0) {                                    //Si Poud inférieur à 0 alors écrit dans la console "oups, there is a problem"
                 console.log('oups, there is a problem');
-            } else if ( weight < 15) {
+            } else if ( weight < 15) {                           //Si Poid inférieur à 15 alors écrit dans la console "Are you that slim ?"
                 console.log('Are you that slim ?')
-            } else {
+            } else {                                             //Si Toute les autres conditions sont fausses alors écrit dans la console "Goog !"
                 console.log('Good !')
             }
         }
 
-        info(165, 45);
+        info(165, 45);                              //Appelle la fonction Info en donnant comme valeur Taille = 165 et Poid = 45
 
-        var myHeight = 175;
-        var myWeight = 86;
+        var myHeight = 175;                         //Atribut sa taille a une variable
+        var myWeight = 86;                          //Atribut son poid a une variable
 
-        info(myHeight, myWeight);
+        info(myHeight, myWeight);                   //Appelle la fonction Info en donnant comme valleur Taile = myHeight et Poid = myWeight
 
-        info(myHeight + 15, myWeight - 100);
+        info(myHeight + 15, myWeight - 100);        //Appelle la fonction Info en donnant comme valleur Taile = myHeight + 15 et Poid = myWeight - 100
 
-        function toUpper(variable) {
-            return variable.toUpperCase();
+        function toUpper(variable) {                //Fonction qui permet de convertir un string en Lettre majuscule
+            return variable.toUpperCase();          //Renvoie la valeur en majuscule de la variable envoyé en paramètr
         }
 
-        var upperName = toUpper(name);
+        var upperName = toUpper(name);              //Permet de stocker le nom en majuscule dans la variable upperName en appelant la fonction toUpper()
 
-        for (i = 0; i < 3; i = i + 1) {
+        for (i = 0; i < 3; i = i + 1) {             //Boucle permettant de lister dans la console les 3 1ere valeurs se trouvant dans le tableau previousJobs
             console.log(previousJobs[i]);
         }
 
         /* Section 2: */
 
-        // afficher la ville dans laquele Joe vit.     
+        console.log(city);                          // afficher la ville dans laquele Joe vit.
 
-        // afficher si Joe est roux ou pas.
+        if (isRed)                                  // afficher si Joe est roux ou pas.
+        {
+            console.log("Il est roux");
+        }
+        else
+        {
+            console.log("Il est pas roux");
+        }
 
         /* Section 3 */
 
-        // console.log(myVariable);
+        console.log(myVariable);
 
         </script>
 
