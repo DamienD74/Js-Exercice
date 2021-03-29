@@ -9,8 +9,256 @@
     <div class="container">
 						<h1>Exercice 7</h1>
 				</div>
-    <script src="datas.js"></script>
-    <script src="exo7.js"></script>
-  </body>
 
+    <div>Choisie un type : voiture, maison, jeux, jeuxvideo ou concert ?</div>
+    <input type="text" id="textType" name="textType">
+
+    <div>
+        div>Voulez vous voir les produits en rupture de stock ?</div>
+        <input type="checkbox" id="ruptureYes" name="ruptureYes">
+        <label for="ruptureYes">Oui</label>
+    </div>
+
+    <div>
+        <div>Choisissez si vous voulez trié et dans quelle ordre.</div>
+        <a><select name="Tri" id ="tri">
+            <option value="">--Choisie une option--</option>
+            <option value="triName">Nom</option>
+            <option value="triPrice">Prix</option>
+        </select></a>
+        <a><input type="checkbox" id="ASC" name="ASC" checked>
+            <label for="ASC">ASC</label></a>
+    </div>
+
+    <input type="button" id="boutonCreateTable" value="Valider" onclick="createTable()">
+
+    <div>
+        <div>Ajouter Un Produit</div>
+        <table>
+            <thead>
+            <tr>
+                <th>nom</th>
+                <th>Type</th>
+                <th>description</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Nom Contact</th>
+                <th>Prénom Contact</th>
+                <th>Adresse Contact</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="text" id="createTextName" name="createTextName"></td>
+                <td><input type="text" id="createTextType" name="createTextType"></td>
+                <td><input type="text" id="createTextDescription" name="createTextDescription"></td>
+                <td><input type="text" id="createTextPrice" name="createTextPrice"></td>
+                <td><input type="text" id="createTextQuantity" name="createTextQuantity"></td>
+                <td><input type="text" id="createTextNameContact" name="createTextNameContact"></td>
+                <td><input type="text" id="createTextFirstNameContact" name="createTextFirstNameContact"></td>
+                <td><input type="text" id="createTextAdressContact" name="createTextAdressContact"></td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="button" id="boutonAddProduct" value="Ajouter" onclick="addProduct()">
+    </div>
+
+    <table id="list"></table>
+
+    <script src="datas 2.js"></script>
+    <script src="exo7.js"></script>
+    <script>
+        function createTable()
+        {
+            var head = document.createElement("thead");
+            var entete = document.createElement("tr");
+            var name = document.createElement("th");
+            var textName = document.createTextNode("name");
+            var type = document.createElement("th");
+            var textType = document.createTextNode("type");
+            var description = document.createElement("th");
+            var textDescription = document.createTextNode("description");
+            var price = document.createElement("th");
+            var textPrice = document.createTextNode("price");
+            var quantity = document.createElement("th");
+            var textQuantity = document.createTextNode("quantity");
+            var contact = document.createElement("th");
+            var textContact = document.createTextNode("contact");
+            var Tbody = document.createElement("Tbody");
+
+            head.appendChild(entete);
+            entete.appendChild(name);
+            name.appendChild(textName);
+            entete.appendChild(type);
+            type.appendChild(textType);
+            entete.appendChild(description);
+            description.appendChild(textDescription);
+            entete.appendChild(price);
+            price.appendChild(textPrice);
+            entete.appendChild(quantity);
+            quantity.appendChild(textQuantity);
+            entete.appendChild(contact);
+            contact.appendChild(textContact);
+
+            var valueTri = document.getElementById("tri").value;
+            var valueASC = document.getElementById("ASC");
+            var valueType = document.getElementById("textType").value;
+            var valueRupture = document.getElementById("ruptureYes");
+
+            //Permet de trier par nom ou prix et par ordre ascendant ou descendant.
+
+            if (valueTri == "triName" && valueASC.checked)
+            {
+                for (var data of jsonDatas)
+                {
+                    data.items.sort(function compare(a, b) {
+                        if (a.name < b.name)
+                        {
+                            return -1;
+                        }
+                        if (a.name > b.name)
+                        {
+                            return 0;
+                        }
+                    })
+                }
+            }
+            else if (valueTri == "triName" && !valueASC.checked)
+            {
+                for (var data of jsonDatas)
+                {
+                    data.items.sort(function compare(a, b) {
+                        if (a.name > b.name)
+                        {
+                            return -1;
+                        }
+                        if (a.name < b.name)
+                        {
+                            return 0;
+                        }
+                    })
+                }
+            }
+            else if (valueTri == "triPrice" && valueASC.checked)
+            {
+                for (var data of jsonDatas)
+                {
+                    data.items.sort(function compare(a, b) {
+                        if (a.price < b.price)
+                        {
+                            return -1;
+                        }
+                        if (a.price > b.price)
+                        {
+                            return 0;
+                        }
+                    })
+                }
+            }
+            else if (valueTri == "triPrice" && !valueASC.checked)
+            {
+                for (var data of jsonDatas)
+                {
+                    data.items.sort(function compare(a, b) {
+                        if (a.price > b.price)
+                        {
+                            return -1;
+                        }
+                        if (a.price < b.price)
+                        {
+                            return 0;
+                        }
+                    })
+                }
+            }
+
+            //Creer le tableau avec les différents produits, celon ceux qui sont sélectionné
+
+            var nb = 0;
+
+            for (var data of jsonDatas)
+            {
+                if (data.type == valueType)
+                {
+                    for (var item of data.items) {
+                        if((item.quantity != 0 && valueRupture.checked) || !valueRupture.checked)
+                        {
+                            var product = document.createElement("tr");
+                            var nameP = document.createElement("td");
+                            var textNameP = document.createTextNode(item.name);
+                            var typeP = document.createElement("td");
+                            var textTypeP = document.createTextNode(data.type);
+                            var descriptionP = document.createElement("td");
+                            var textDescriptionP = document.createTextNode(item.description);
+                            var priceP = document.createElement("td");
+                            var textPriceP = document.createTextNode(item.price);
+                            var quantityP = document.createElement("td");
+                            var textQuantityP = document.createTextNode(item.quantity);
+                            var nameContact = document.createElement("td");
+                            var textNameContact = document.createTextNode(item.contact.lastName);
+                            var firstNameContact = document.createElement("td");
+                            var textFirstNameContact = document.createTextNode(item.contact.firstName);
+                            var adressContact = document.createElement("td");
+                            var textAdressContact = document.createTextNode(item.contact.address);
+
+                            Tbody.appendChild(product);
+                            product.appendChild(nameP);
+                            nameP.appendChild(textNameP);
+                            product.appendChild(typeP);
+                            typeP.appendChild(textTypeP);
+                            product.appendChild(descriptionP);
+                            descriptionP.appendChild(textDescriptionP);
+                            product.appendChild(priceP);
+                            priceP.appendChild(textPriceP);
+                            product.appendChild(quantityP);
+                            quantityP.appendChild(textQuantityP);
+                            product.appendChild(nameContact);
+                            nameContact.appendChild(textNameContact);
+                            product.appendChild(firstNameContact);
+                            firstNameContact.appendChild(textFirstNameContact);
+                            product.appendChild(adressContact);
+                            adressContact.appendChild(textAdressContact);
+                        }
+                    }
+                }
+            }
+            var currentTable = document.getElementById("list");
+            document.body.appendChild(head, currentTable);
+            document.body.appendChild(Tbody, currentTable);
+        }
+
+        //Permet l'ajout d'un produit dans le tableau
+
+        function addProduct()
+        {
+            for (var data of jsonDatas)
+            {
+                if (data.items.type === textValueType)
+                {
+                    var textValueName = document.getElementById("createTextName").value;
+                    var textValueType = document.getElementById("createTextType").value;
+                    var textValueDescription = document.getElementById("createTextDescription").value;
+                    var textValuePrice = document.getElementById("createTextPrice").value;
+                    var textValueQuantity = document.getElementById("createTextQuantity").value;
+                    var textValueNameContact = document.getElementById("createTextNameContact").value;
+                    var textValueFirstNameContact = document.getElementById("createTextFirstNameContact").value;
+                    var textValueAdressContact = document.getElementById("createTextAdressContact").value;
+                    var product = {
+                        name : textValueName,
+                        type : textValueType,
+                        description : textValueDescription,
+                        price : textValuePrice,
+                        quantity : textValueQuantity,
+                        contact : {
+                            lastName  : textValueNameContact,
+                            firstName : textValueFirstNameContact,
+                            address	: textValueAdressContact
+                        }
+                    };
+                    data.items.push(product)
+                }
+            }
+        }
+    </script>
+  </body>
 </html>
